@@ -1,0 +1,75 @@
+---
+title: "TugasModul3"
+author: "Nindya Putri Maharani"
+date: "2022-09-14"
+output:
+  word_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+Import dataset "murders";
+```{r}
+library(dslabs)
+data(murders)
+```
+
+##Soal 1 
+Gunakan fungsi str untuk memeriksa struktur objek murders.
+Jawaban : C. Data berisi Nama negara bagian, singkatan dari nama negara bagian, wilayah
+negara bagian, dan populasi negara bagian serta jumlah total pembunuhan pada
+tahun 2010.
+
+```{r}
+str(murders)
+```
+
+
+##Soal 2 
+Sebutkan apa saja nama kolom yang digunakan pada data frame
+Jawaban :
+
+```{r}
+names(murders)
+```
+##Soal 3
+Gunakan operator aksesor $ unyuk mengekstrak informasi singkatan negara dan menyimpannya pada
+objek "a".Sebutkan jenis class dari objek tersebut
+Jawaban :
+
+```{r}
+a <- murders$abb
+a
+class(a)
+```
+
+##Soal 4
+Gunakan tanda kurung siku untuk mengekstrak singkatan negara dan menyimpannya pada objek "b". Tentukan apakah variabel "a" dan "b" bernilai sama?
+Jawaban : a dan b bernilai sama yaitu "character"
+
+```{r}
+b <- murders[,2]
+b
+class(b)
+```
+
+##Soal 5
+Variabel region memiliki tipe data :factor. Dengan satu baris kode, gunakan fungsi level dan length untuk menentukan jumlah region yang dimiliki dataset.
+Jawaban :
+
+```{r}
+levels(murders$region)
+length(levels(murders$region))
+```
+
+## Soal 6
+Fungsi table dapat digunakan untuk ekstraksi data pada tipe vektor dan menampilkan frekuensi dari setiap elemen. Dengan menerapkan fungsi tersebut, dapat diketahui jumlah state pada tiap region. 
+Gunakan fungsi table dalam satu baris kode untuk menampilkan tabel baru yang berisi jumlah state pada tiap region.
+Jawaban :
+
+```{r}
+table(murders$region)
+```
+
