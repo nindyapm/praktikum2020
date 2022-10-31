@@ -1,0 +1,290 @@
+---
+title: "Untitled"
+author: "Nindya Putri Maharani"
+date: "2022-10-05"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+Import dataset "murders";
+```{r}
+library(dslabs)
+data(murders)
+```
+
+##Soal 1 
+Gunakan fungsi str untuk memeriksa struktur objek murders.
+Jawaban : C. Data berisi Nama negara bagian, singkatan dari nama negara bagian, wilayah
+negara bagian, dan populasi negara bagian serta jumlah total pembunuhan pada
+tahun 2010.
+
+```{r}
+str(murders)
+```
+##Soal 2 
+Sebutkan apa saja nama kolom yang digunakan pada data frame
+Jawaban :
+
+```{r}
+names(murders)
+```
+##Soal 3
+Gunakan operator aksesor $ unyuk mengekstrak informasi singkatan negara dan menyimpannya pada
+objek "a".Sebutkan jenis class dari objek tersebut
+Jawaban :
+```{r}
+a <- murders$abb
+a
+class(a)
+```
+##Soal 4
+Gunakan tanda kurung siku untuk mengekstrak singkatan negara dan menyimpannya pada objek "b". Tentukan apakah variabel "a" dan "b" bernilai sama?
+Jawaban : a dan b bernilai sama yaitu "character"
+
+```{r}
+b <- murders[,2]
+b
+class(b)
+```
+
+##Soal 5
+Variabel region memiliki tipe data :factor. Dengan satu baris kode, gunakan fungsi level dan length untuk menentukan jumlah region yang dimiliki dataset.
+Jawaban :
+
+```{r}
+levels(murders$region)
+length(levels(murders$region))
+```
+
+## Soal 6
+Fungsi table dapat digunakan untuk ekstraksi data pada tipe vektor dan menampilkan frekuensi dari setiap elemen. Dengan menerapkan fungsi tersebut, dapat diketahui jumlah state pada tiap region. 
+Gunakan fungsi table dalam satu baris kode untuk menampilkan tabel baru yang berisi jumlah state pada tiap region.
+Jawaban :
+
+```{r}
+table(murders$region)
+```
+
+---
+title: "TugasModul4"
+author: "Nindya Putri Maharani"
+date: "2022-09-15"
+output:
+  word_document: default
+  html_document: default
+  pdf_document: default
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+Import dataset "murders";
+```{r}
+library(dslabs)
+data(murders)
+```
+##Soal 1
+Gunakan operator aksesor ($) untuk mengakses variabel populasi dan menyimpannya pada
+objek baru “pop”. Kemudian gunakan fungsi sort untuk mengurutkan variabel “pop”. Pada
+langkah terakhir, gunakan operator ([) untuk menampilkan nilai populasi terkecil.
+Jawaban :
+```{r}
+pop <- (murders$population)
+a <- sort(pop)
+a[1]
+```
+##Soal 2
+Tampilkan indeks dari data yang memiliki nilai populasi terkecil.Petunjuk: gunakan fungsi order. 
+Jawaban :
+```{r}
+a <- order(murders$population)
+a ##Menampilkan indeks hasil yang telah diurutkan
+a[1] ##Menampilkan indeks dari data yang memiliki nilai populasi terkecil
+```
+##Soal 3
+Dengan fungsi which.min, Tulis satu baris kode yang dapat menampilkan hasil yang sama dengan langkah diatas. 
+Jawaban :
+```{r}
+which.min(murders$population)
+```
+##Soal 4
+Tampilkan nama negara yang memiliki populasi terkecil.
+Jawaban :
+```{r}
+b <- which.min(murders$population)
+murders$state[b]
+```
+##Soal 5
+Untuk membuat data frame baru, contoh script yang dapat digunakan adalah sebagai berikut:
+Gunakan fungsi rank untuk menentukan peringkat populasi dari tiap negara bagian, dimulai
+dari nilai terkecil hingga terbesar. Simpan hasil pemeringkatan di objek baru “ranks”, lalu buat
+data frame baru yang berisi nama negara bagian dan peringkatnya dengan nama “my_df”.
+Jawaban :
+```{r}
+ranks <- rank(murders$population)
+ranks
+my_df <- data.frame(NegaraBg = murders$state, rank = ranks)
+my_df
+```
+##Soal 6
+Ulangi langkah sebelumnya, namun kali ini urutkan my_df dengan fungsi order agar data
+yang ditampilkan merupakan data yang telah diurutkan dari populasi yang paling tidak padat
+hingga ke yang terpadat.
+Petunjuk: buat objek “ind” yang akan menyimpan indeks yang diperlukan dalam mengurutkan
+data populasi 
+Jawaban :
+```{r}
+ranks <- rank(murders$population)
+my_df <- data.frame(NegaraBg = murders$state, rank = ranks)
+ind <- order(my_df$rank)
+my_df$NegaraBg[ind]
+```
+
+##Soal 7
+Untuk keperluan analisis data, akan dibuat plot yang memvisualisasikan total pembunuhan
+terhadap populasi dan mengidentifikasi hubungan antara keduanya. 
+Jawaban :
+
+```{r}
+y = (murders$total)
+x = (log10(murders$population / 10^6))
+plot(x, y, ylab = "Total Pembunuhan", xlab = "Skala")
+```
+
+
+##Soal 8
+Buat histogram dari populasi negara bagian. 
+Jawaban :
+```{r}
+populasi <- with(murders,murders$population/10^6)
+hist(populasi, main = "Populasi Negara Bagian")
+```
+
+
+##Soal 9
+Hasilkan boxplot dari populasi negara bagian berdasarkan wilayahnya. 
+Jawaban :
+
+```{r}
+murders$rate <- with(murders, total / population * 10^6)
+boxplot(rate~region, data = murders)
+```
+
+########
+---
+title: "Tugas Modul 5"
+author: "Nindya Putri Maharani"
+date: "2022-09-26"
+output:
+  word_document: default
+  html_document: default
+  pdf_document: default
+---
+
+Import dataset "murders";
+```{r}
+library(dslabs)
+data(murders)
+```
+##Soal 1
+Fungsi nchar dapat digunakan untuk menghitung jumlah karakter dari suatu vektor karakter.Buatlah satu baris kode yang akan menyimpan hasil komputasi pada variabel ‘new_names’dan berisi singkatan nama negara ketika jumlah karakternya lebih dari 8 karakter.
+Jawaban :
+```{r}
+new_names <- nchar(murders$state)
+ifelse( new_names > 8, murders$abb, murders$state)
+```
+
+##Soal 2
+Buat fungsi sum_n yang dapat digunakan untuk menghitung jumlah bilangan bulat dari 1
+hingga n. Gunakan pula fungsi ini untuk menentukan jumlah bilangan bulat dari 1 hingga
+5.000.
+Jawaban :
+```{r}
+sum_n <- function(n){
+  n <- 1:n
+  sum(n)
+}
+sum_n(5000)
+```
+
+##Soal 3
+Buat fungsi compute_s_n yang dapat digunakan untuk menghitung jumlah Sn = 1^2 + 2^2 + 3^2 +. . . n^2. Tampilkan hasil penjumlahan ketika n = 10.
+Jawaban :
+```{r}
+n = 10
+compute_s_n <- function(n) {
+  n <- 1:n
+  sum(n^2)
+}
+compute_s_n(n)
+```
+
+##Soal 4
+Buat vektor numerik kosong dengan nama: s_n dengan ukuran:25 menggunakan s_n <-
+vector ("numeric", 25). Simpan di hasil komputasi S1, S2,. . . S25 menggunakan FOR-LOOP.
+Jawaban :
+```{r}
+s_n <- vector("numeric", 25)
+for(n in 1:25) {
+  s_n[n] <- compute_s_n(n)
+}
+s_n
+```
+
+
+##Soal 5
+Ulangi langkah pada soal no. 4 dan gunakan fugsi sapply.
+Jawaban :
+```{r}
+n <- 1:25
+sapply(n, compute_s_n)
+```
+
+CONTOH 
+1. Load library tambahan untuk import file! point 2
+```{r}
+library(dslabs)
+library(dplyr)
+data=read.csv("D:/semester 5/Praktikum Data
+Science/worldwide_covid_data.csv", sep = ",", header = TRUE)
+```
+
+2.Nampilin datanya
+```{r}
+data
+str(data)
+```
+3. Tampilkan 10 nama Negara dengan jumlah kasus Covid-19 yang terkonfirmasi dari paling banyak ke paling sedikit! 
+```{r}
+country = data$Country
+ranks = rank(data$Total_Cases)
+tampil = order(data$Total_Cases, decreasing = TRUE)
+tampil_data = data.frame(country=country[tampil],ranks=ranks[tampil])
+tampil_data
+```
+4.Buat kolom baru bernama Rate_Deaths yang berisi rasio korban Covid-19 yang meninggal dengan yang terkonfirmasi!
+```{r}
+data = mutate(data,Rate_Deaths=Total_Deaths/Total_Cases)
+head(data)
+```
+
+5. Negara mana yang memiliki rasio kematian Covid-19 tertinggi dan terendah? Tampilkan nama negaranya.
+```{r}
+#tertinggi
+data = mutate(data,Rate_Deaths=Total_Deaths/Total_Cases)
+tertinggi = which.max(data$Rate_Deaths)
+data$Country[tertinggi]
+
+#terendah
+terendah = which.min(data$Rate_Deaths)
+data$Country[terendah]
+```
+
+6. Tampilkan grafik plot antara penderita yang sembuh dengan penderita yang terkonfirmasi Covid-19!
+sembuh = data$Total_Recovered
+konfirmasi = data$Total_Cases
+plot(sembuh, konfirmasi)
+
+
+
